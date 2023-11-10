@@ -35,44 +35,44 @@ public class AnimatedBody extends Actor {
             texture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
         }
 
-        final Array<Sprite> walkRightSprites = animationParser.initAnimation(characterName, "walksideways", characterAtlas, false);
-        final Array<Sprite> walkLeftSprites = animationParser.initAnimation(characterName, "walksideways", characterAtlas, true);
+        final List<Sprite> walkRightSprites = animationParser.initAnimation(characterName, "walksideways", characterAtlas);
+        final List<Sprite> walkLeftSprites = animationParser.initAnimation(characterName, "walksideways", characterAtlas);
 
-        final Array<Sprite> walkUpSprites = animationParser.initAnimation(characterName, "walkup", characterAtlas, false);
-        final Array<Sprite> walkDownSprites = animationParser.initAnimation(characterName, "walkdown", characterAtlas, false);
+        final List<Sprite> walkUpSprites = animationParser.initAnimation(characterName, "walkup", characterAtlas);
+        final List<Sprite> walkDownSprites = animationParser.initAnimation(characterName, "walkdown", characterAtlas);
 
-        final Array<Sprite> walkDownRestSprites = animationParser.initAnimation(characterName, "walkdownrest", characterAtlas, false);
-        final Array<Sprite> walkUpRestSprites = animationParser.initAnimation(characterName, "walkuprest", characterAtlas, false);
+        final List<Sprite> walkDownRestSprites = animationParser.initAnimation(characterName, "walkdownrest", characterAtlas);
+        final List<Sprite> walkUpRestSprites = animationParser.initAnimation(characterName, "walkuprest", characterAtlas);
 
-        final Array<Sprite> walkRightRestSprites = animationParser.initAnimation(characterName, "walksidewaysrest", characterAtlas, false);
-        final Array<Sprite> walkLeftRestSprites = animationParser.initAnimation(characterName, "walksidewaysrest", characterAtlas, true);
+        final List<Sprite> walkRightRestSprites = animationParser.initAnimation(characterName, "walksidewaysrest", characterAtlas);
+        final List<Sprite> walkLeftRestSprites = animationParser.initAnimation(characterName, "walksidewaysrest", characterAtlas);
 
         // Since there's only one row, we only get the first array
         final float frameDuration = 0.1f;
-        Animation<Sprite> heroWalkRightAnimation = new Animation<>(frameDuration, walkRightSprites);
-        Animation<Sprite> heroWalkLeftAnimation = new Animation<>(frameDuration, walkLeftSprites);
+        Animation<Sprite> heroWalkRightAnimation = new Animation<>(frameDuration, walkRightSprites.toArray(new Sprite[walkDownSprites.size()]));
+        Animation<Sprite> heroWalkLeftAnimation = new Animation<>(frameDuration, walkLeftSprites.toArray(new Sprite[walkDownSprites.size()]));
 
-        Animation<Sprite> heroWalkUpAnimation = new Animation<>(frameDuration, walkUpSprites);
-        Animation<Sprite> heroWalkDownAnimation = new Animation<>(frameDuration, walkDownSprites);
+        Animation<Sprite> heroWalkUpAnimation = new Animation<>(frameDuration, walkUpSprites.toArray(new Sprite[walkDownSprites.size()]));
+        Animation<Sprite> heroWalkDownAnimation = new Animation<>(frameDuration, walkDownSprites.toArray(new Sprite[walkDownSprites.size()]));
 
-        Animation<Sprite> heroWalkRightRestAnimation = new Animation<>(10, walkRightRestSprites);
-        Animation<Sprite> heroWalkLeftRestAnimation = new Animation<>(10, walkLeftRestSprites);
+        Animation<Sprite> heroWalkRightRestAnimation = new Animation<>(10, walkRightRestSprites.toArray(new Sprite[walkDownSprites.size()]));
+        Animation<Sprite> heroWalkLeftRestAnimation = new Animation<>(10, walkLeftRestSprites.toArray(new Sprite[walkDownSprites.size()]));
 
-        Animation<Sprite> heroWalkUpRestAnimation = new Animation<>(10, walkUpRestSprites);
-        Animation<Sprite> heroWalkDownRestAnimation = new Animation<>(10, walkDownRestSprites);
+        Animation<Sprite> heroWalkUpRestAnimation = new Animation<>(10, walkUpRestSprites.toArray(new Sprite[walkDownSprites.size()]));
+        Animation<Sprite> heroWalkDownRestAnimation = new Animation<>(10, walkDownRestSprites.toArray(new Sprite[walkDownSprites.size()]));
 
         // Set it to ping pong mode so our hero looks like he's walking
         heroWalkRightAnimation.setPlayMode(Animation.PlayMode.LOOP);
         heroWalkLeftAnimation.setPlayMode(Animation.PlayMode.LOOP);
 
-        heroWalkUpAnimation.setPlayMode(Animation.PlayMode.LOOP);
         heroWalkDownAnimation.setPlayMode(Animation.PlayMode.LOOP);
+        heroWalkUpAnimation.setPlayMode(Animation.PlayMode.LOOP_REVERSED);
 
         heroWalkRightRestAnimation.setPlayMode(Animation.PlayMode.LOOP);
-        heroWalkLeftRestAnimation.setPlayMode(Animation.PlayMode.LOOP);
+        heroWalkLeftRestAnimation.setPlayMode(Animation.PlayMode.LOOP_REVERSED);
 
-        heroWalkUpRestAnimation.setPlayMode(Animation.PlayMode.LOOP);
         heroWalkDownRestAnimation.setPlayMode(Animation.PlayMode.LOOP);
+        heroWalkUpRestAnimation.setPlayMode(Animation.PlayMode.LOOP_REVERSED);
 
         walkAnimsMap.put(WalkingDirection.RIGHT.getType(), heroWalkRightAnimation);
         walkAnimsMap.put(WalkingDirection.LEFT.getType(), heroWalkLeftAnimation);
@@ -105,8 +105,12 @@ public class AnimatedBody extends Actor {
                 String animationPrefix = nameParts[1]; // Get the animation prefix
 
                 // Animation prefix not found in the map, create a new animation
-                Array<Sprite> sprites = animationParser.initAnimation(characterName, animationPrefix, characterAtlas, false);
-                Animation<Sprite> animation = new Animation<>(1f / sprites.size, sprites);
+                List<Sprite> nonWalkSprites = animationParser.initAnimation(characterName, animationPrefix, characterAtlas);
+                if(nonWalkSprites.size() == 0){
+                    throw new GdxRuntimeException(String.format("Animation with name %s is not present", animationPrefix));
+                }
+
+                Animation<Sprite> animation = new Animation<>(1f / nonWalkSprites.size(), nonWalkSprites.toArray(new Sprite[nonWalkSprites.size()]));
                 animation.setPlayMode(Animation.PlayMode.NORMAL);
                 nonWalkAnimsMap.put(animationPrefix, animation);
             }
@@ -150,7 +154,12 @@ public class AnimatedBody extends Actor {
     public void animateHeroWalkingInDirection(WalkingDirection walkingDirection) {
         Animation<Sprite> spriteAnimation = this.walkAnimsMap.get(walkingDirection.getType());
         if (spriteAnimation != null) {
-            if(walkingDirection == WalkingDirection.DOWN || walkingDirection == WalkingDirection.RIGHT){
+            if (walkingDirection == WalkingDirection.RIGHT || walkingDirection == WalkingDirection.LEFT) {
+                // Iterate through all frames and flip each sprite horizontally
+                for(Object spriteFrame : spriteAnimation.getKeyFrames()){
+                    Sprite sprite = (Sprite) spriteFrame;
+                    sprite.setFlip(!sprite.isFlipX(), false);
+                }
             }
             this.currentWalkAnimation = spriteAnimation;
         }
