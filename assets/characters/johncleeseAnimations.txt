@@ -1,0 +1,173 @@
+johncleeseAnimations.png
+size: 542, 542
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+johncleese-lipsyncdown-1
+  rotate: false
+  xy: 37, 1
+  size: 54, 155
+  orig: 54, 155
+  offset: 0, 0
+  index: -1
+johncleese-lipsyncup-1
+  rotate: false
+  xy: 93, 1
+  size: 54, 155
+  orig: 54, 155
+  offset: 0, 0
+  index: -1
+johncleese-walkdown-1
+  rotate: false
+  xy: 57, 158
+  size: 60, 155
+  orig: 60, 155
+  offset: 0, 0
+  index: -1
+johncleese-walkdown-2
+  rotate: false
+  xy: 119, 158
+  size: 60, 155
+  orig: 60, 155
+  offset: 0, 0
+  index: -1
+johncleese-walkdown-3
+  rotate: false
+  xy: 181, 158
+  size: 60, 155
+  orig: 60, 155
+  offset: 0, 0
+  index: -1
+johncleese-walkdown-4
+  rotate: false
+  xy: 243, 158
+  size: 60, 155
+  orig: 60, 155
+  offset: 0, 0
+  index: -1
+johncleese-walkdown-5
+  rotate: false
+  xy: 305, 158
+  size: 60, 155
+  orig: 60, 155
+  offset: 0, 0
+  index: -1
+johncleese-walkdownrest-1
+  rotate: false
+  xy: 149, 1
+  size: 54, 155
+  orig: 54, 155
+  offset: 0, 0
+  index: -1
+johncleese-walksideways-1
+  rotate: false
+  xy: 367, 158
+  size: 86, 167
+  orig: 86, 167
+  offset: 0, 0
+  index: -1
+johncleese-walksideways-2
+  rotate: false
+  xy: 455, 158
+  size: 86, 167
+  orig: 86, 167
+  offset: 0, 0
+  index: -1
+johncleese-walksideways-3
+  rotate: false
+  xy: 1, 327
+  size: 86, 167
+  orig: 86, 167
+  offset: 0, 0
+  index: -1
+johncleese-walksideways-4
+  rotate: false
+  xy: 89, 327
+  size: 86, 167
+  orig: 86, 167
+  offset: 0, 0
+  index: -1
+johncleese-walksideways-5
+  rotate: false
+  xy: 177, 327
+  size: 86, 167
+  orig: 86, 167
+  offset: 0, 0
+  index: -1
+johncleese-walksideways-6
+  rotate: false
+  xy: 265, 327
+  size: 86, 167
+  orig: 86, 167
+  offset: 0, 0
+  index: -1
+johncleese-walksideways-7
+  rotate: false
+  xy: 353, 327
+  size: 86, 167
+  orig: 86, 167
+  offset: 0, 0
+  index: -1
+johncleese-walksideways-8
+  rotate: false
+  xy: 441, 327
+  size: 86, 167
+  orig: 86, 167
+  offset: 0, 0
+  index: -1
+johncleese-walksidewaysrest-1
+  rotate: false
+  xy: 1, 1
+  size: 34, 155
+  orig: 34, 155
+  offset: 0, 0
+  index: -1
+johncleese-walkup-1
+  rotate: false
+  xy: 205, 1
+  size: 54, 155
+  orig: 54, 155
+  offset: 0, 0
+  index: -1
+johncleese-walkup-2
+  rotate: false
+  xy: 261, 1
+  size: 54, 155
+  orig: 54, 155
+  offset: 0, 0
+  index: -1
+johncleese-walkup-3
+  rotate: false
+  xy: 317, 1
+  size: 54, 155
+  orig: 54, 155
+  offset: 0, 0
+  index: -1
+johncleese-walkup-4
+  rotate: false
+  xy: 373, 1
+  size: 54, 155
+  orig: 54, 155
+  offset: 0, 0
+  index: -1
+johncleese-walkup-5
+  rotate: false
+  xy: 429, 1
+  size: 54, 155
+  orig: 54, 155
+  offset: 0, 0
+  index: -1
+johncleese-walkup-6
+  rotate: false
+  xy: 485, 1
+  size: 54, 155
+  orig: 54, 155
+  offset: 0, 0
+  index: -1
+johncleese-walkuprest-1
+  rotate: false
+  xy: 1, 158
+  size: 54, 155
+  orig: 54, 155
+  offset: 0, 0
+  index: -1
